@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Maturski/app/src/main/res/drawable/class_schedule.xml" value="0.188" />
+        <entry key="..\:/Maturski/app/src/main/res/drawable/custom_ed9ttext.xml" value="0.315" />
+        <entry key="..\:/Maturski/app/src/main/res/drawable/cut_card_background.xml" value="0.1955" />
+        <entry key="..\:/Maturski/app/src/main/res/drawable/del_user.xml" value="0.188" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/activity_add_new_chat.xml" value="0.1796875" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/activity_admin.xml" value="0.1" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/activity_admin_add_user.xml" value="0.1796875" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/activity_all_chats_window.xml" value="0.1" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/activity_chat.xml" value="0.3671875" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/activity_delete_user.xml" value="0.1796875" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/activity_profesor.xml" value="0.1796875" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/activity_professor.xml" value="0.1796875" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/activity_student.xml" value="0.1796875" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/admin_home.xml" value="0.18854166666666666" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/card_layout.xml" value="0.1640625" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/chat_name_box.xml" value="0.1796875" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/message_box_layout.xml" value="0.10666666666666667" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/message_me.xml" value="0.1796875" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/message_other.xml" value="0.17864583333333334" />
+        <entry key="..\:/Maturski/app/src/main/res/layout/user_card_admin.xml" value="0.1796875" />
+        <entry key="..\:/Maturski/app/src/main/res/menu/custom_menu.xml" value="0.16666666666666666" />
+        <entry key="..\:/Maturski/app/src/main/res/menu/search_menu.xml" value="0.1796875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

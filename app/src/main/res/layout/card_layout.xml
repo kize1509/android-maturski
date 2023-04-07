@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView android:id="@+id/card"
+    app:cardUseCompatPadding="true"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginStart="20dp"
+    android:padding="20dp"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:layout_gravity="fill"
+    android:layout_columnWeight="0.5"
+    android:layout_rowWeight="0.5"
+    android:layout_row="0"
+    android:layout_column="0"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    android:visibility="invisible"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/one"
+            android:textSize="8sp"
+            />
+    <Button
+        android:id="@+id/delButton"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="del"
+        android:textSize="8sp"
+        />
+
+    </androidx.cardview.widget.CardView>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="admin.add.AddActivity"
+    android:gravity="center"
+    >
+
+    <TextView
+        android:id="@+id/registerForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add User Form"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/purple"
+        />
+    <EditText
+
+        android:id="@+id/emailField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="email"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="70dp"
+        android:padding="18dp"
+        />
+
+    <EditText
+        android:id="@+id/passField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="password"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:id="@+id/classField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="class"
+        android:layout_marginTop="20dp"
+        />
+    
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/confirm"
+        android:text="Confirm"
+        android:backgroundTint="@color/purple"
+        />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/coordinatorLayout"/>
+
+</LinearLayout>
