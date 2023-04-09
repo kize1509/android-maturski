@@ -13,17 +13,17 @@ import android.widget.ProgressBar;
 
 import com.example.maturski.R;
 import models.User;
-import network.base;
 
 import java.util.List;
+import network.user.userRequests;
 
 public class DeleteActivity extends AppCompatActivity {
     List<User> userList;
     Button loadButton;
-    base base;
     ProgressBar progBar;
     String username;
     RecyclerView recyclerView;
+    userRequests ur;
 
     private CoordinatorLayout coordinatorLayout;
 
@@ -33,18 +33,18 @@ public class DeleteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_delete_user);
         Intent intent = getIntent();
         username = intent.getStringExtra("activeUser");
-
+        ur = new userRequests();
         recyclerView = findViewById(R.id.Recycler);
         loadButton = findViewById(R.id.button);
         progBar = findViewById(R.id.indeterminateBar);
-        base = new base();
-        String url = base.getUrl();
+        String url = String.valueOf(R.string.url);
         Log.d("USERNAME", "onCreate: " + username);
         
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                base.networkRequestUsers(url, username, userList, recyclerView, DeleteActivity.this, progBar, loadButton);            }
+                ur.networkRequestUsers(url, username, userList, recyclerView, DeleteActivity.this, progBar, loadButton);
+            }
         });
     }
 

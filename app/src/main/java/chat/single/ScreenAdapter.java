@@ -22,7 +22,6 @@ import java.util.List;
 public class ScreenAdapter extends RecyclerView.Adapter {
 
     Button sendButton;
-    Socket socket;
     EditText typeMessage;
     List<messageModel> dataList;
     String username;
@@ -30,9 +29,8 @@ public class ScreenAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
 
-    public ScreenAdapter(Button sendButton, Socket socket, EditText typeMessage, List<messageModel> dataList, String username) {
+    public ScreenAdapter(Button sendButton, EditText typeMessage, List<messageModel> dataList, String username) {
         this.sendButton = sendButton;
-        this.socket = socket;
         this.typeMessage = typeMessage;
         this.dataList = dataList;
         this.username = username;
@@ -69,76 +67,85 @@ public class ScreenAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Boolean flag = false;
-       // DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         messageModel message = null;
         if(dataList.get(position)!= null) {
             message = dataList.get(position);
-            if (position > 0) {
-                LocalDateTime previousMessageDate = dataList.get(position - 1).getMessageDateTime();
-                if (previousMessageDate == message.getMessageDateTime()) {
-                    flag = true;
-                }
+        }
+        String [] both = formatDateNTime(message.getMessageDateTime());
+        if (position > 0) {
+            String previousMessageDate = dataList.get(position - 1).getMessageDateTime();
+            String previousDate = formatDateNTime(previousMessageDate)[0];
+            if (previousDate.equals(both[0])) {
+                flag = true;
             }
         }
-        //String formattedString = message.getMessageDateTime().format(CUSTOM_FORMATTER);
-       // String nonFormattedDate = formattedString.split(" ")[0];
 
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_SENT:
-                ((ViewHolderMe) holder).bind(message);
+                ((ViewHolderMe) holder).bind(message.getMessage(), flag, both[0], both[1]);
                 break;
             case VIEW_TYPE_MESSAGE_RECEIVED:
-                ((ViewHolderOther) holder).bind(message);
+                ((ViewHolderOther) holder).bind(message, flag, both[0], both[1]);
         }
     }
 
-    public String formatDate(String date){
-        String [] array = date.split("-", 10);
-        String day = array[2];
-        String month = array[1];
-        Log.d("month", "formatDate: " + month);
-        String formatedDate = month + ", " + day;
+    public String [] formatDateNTime(String dateTime){
+        String [] array = dateTime.split("T");
+        Log.d("TAG", "formatDateNTime: " + array[0]);
+        String date = array[0];
+        String time = array[1];
+        String [] yearMonthDay = date.split("-");
+        String year = yearMonthDay[0];
+        String month = yearMonthDay[1];
+        String day = yearMonthDay[2];
+        String [] format = {year, month, day};
         switch (month){
-            case "0":
-                    formatedDate = "January" + ", " + day;
-                    break;
-            case "1":
-                formatedDate = "February" + ", " + day;
+            case "01":
+                format[1] = "January";
                 break;
-            case "2":
-                formatedDate = "March" + ", " + day;
+            case "02":
+                format[1] = "February";
                 break;
-            case "3":
-                formatedDate = "April" + ", " + day;
+            case "03":
+                format[1] = "March";
                 break;
-            case "4":
-                formatedDate = "May" + ", " + day;
+            case "04":
+                format[1] = "April";
                 break;
-            case "5":
-                formatedDate = "June" + ", " + day;
+            case "05":
+                format[1] = "May";
                 break;
-            case "6":
-                formatedDate = "July" + ", " + day;
+            case "06":
+                format[1] = "June";
                 break;
-            case "7":
-                formatedDate = "August" + ", " + day;
+            case "07":
+                format[1] = "July";
                 break;
-            case "8":
-                formatedDate = "September" + ", " + day;
+            case "08":
+                format[1] = "August";
                 break;
-            case "9":
-                formatedDate = "October" + ", " + day;
+            case "09":
+                format[1] = "September";
                 break;
             case "10":
-                formatedDate = "November" + ", " + day;
+                format[1] = "October";
+                break;
+            case "11":
+                format[1] = "November";
                 break;
             case "12":
-                formatedDate = "December" + ", " + day;
+                format[1] = "December";
                 break;
 
         }
-        Log.d("TAG", "formatDate: " + formatedDate);
-        return formatedDate;
+        String [] hoursMinutes = time.split(":");
+        String hours = hoursMinutes[0];
+        String minutes = hoursMinutes[1];
+        String formattedTime = hours + ":" + minutes;
+        String formattedDate = format[1] + " " + format[2] + ", " + format[0];
+        String [] both = {formattedDate, formattedTime};
+        return both;
     }
 
     @Override
@@ -156,8 +163,12 @@ public class ScreenAdapter extends RecyclerView.Adapter {
             dateText = itemView.findViewById(R.id.text_gchat_date_me);
         }
 
-        void bind(messageModel chatMessage) {
-            messageText.setText(chatMessage.getMessage());
+        void bind(String chatMessage, boolean flag, String date, String time) {
+            messageText.setText(chatMessage);
+            timeText.setText(time);
+            if(!flag){
+                dateText.setText(date);
+            }
         }
     }
 
@@ -175,9 +186,13 @@ public class ScreenAdapter extends RecyclerView.Adapter {
             dateText = itemView.findViewById(R.id.text_gchat_date_other);
         }
 
-        void bind(messageModel chatMessage){
+        void bind(messageModel chatMessage, boolean flag, String date, String time){
             messageText.setText(chatMessage.getMessage());
             nameText.setText(chatMessage.getUsername());
+            timeText.setText(time);
+            if(!flag){
+                dateText.setText(date);
+            }
         }
     }
 }

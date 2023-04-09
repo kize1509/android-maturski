@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     EditText usernameField;
     EditText passwordField;
     Button submitButton;
-    base base;
 
     private CoordinatorLayout coordinatorLayout;
     @Override
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.password);
         submitButton = findViewById(R.id.loginButton);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
-        base = new base();
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, "Polja username i password moraju imati vrednost!", Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }else{
-
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl(base.getUrl()).addConverterFactory(GsonConverterFactory.create()).build();
+                    String url = base.getUlr();
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
                     userService userService = retrofit.create(userService.class);
                     Call<List<User>> response = userService.getUser(usernameFieldValue, passwordFieldValue);
                     response.enqueue(new Callback<List<User>>() {

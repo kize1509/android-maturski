@@ -35,11 +35,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import network.chat.roomRequests;
 
 public class AddChatActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    base baseInstance;
+    roomRequests roomRequests;
     List<User> users;
     ArrayList<String> mylist;
     ArrayAdapter<String> adapter;
@@ -58,8 +59,8 @@ public class AddChatActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mylist);
         Thread thread = new Thread() {
             public void run() {
-                baseInstance = new base();
-                String url = baseInstance.getUrl();
+                roomRequests = new roomRequests();
+                String url = base.getUlr();
                 Gson gson = new GsonBuilder().setLenient().create();
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(url)
@@ -116,7 +117,7 @@ public class AddChatActivity extends AppCompatActivity {
 
                 Thread thread = new Thread() {
                     public void run() {
-                        baseInstance.networkRequestChatRoom(newChatRoomModel, AddChatActivity.this, username);
+                        roomRequests.networkRequestChatRoom(newChatRoomModel, AddChatActivity.this, username);
                     }
                 };
 
@@ -167,8 +168,7 @@ public class AddChatActivity extends AppCompatActivity {
 
         @Override
         protected ArrayList<String> doInBackground(String... strings) {
-            baseInstance = new base();
-            String url = baseInstance.getUrl();
+            String url = String.valueOf(R.string.url);
             Gson gson = new GsonBuilder().setLenient().create();
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(url)

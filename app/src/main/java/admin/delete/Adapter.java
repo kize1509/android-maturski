@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.maturski.R;
 import network.models.response;
 import models.User;
-import network.base;
 import network.userService;
 
 import java.util.List;
@@ -26,9 +25,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import network.user.userRequests;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-    base baseInstance;
     List<User> userList;
     ProgressBar pb;
     Retrofit retrofit;
@@ -109,7 +108,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         @Override
         protected String doInBackground(String... params) {
-            baseInstance = new base();
             userService userService = retrofit.create(userService.class);
             Call<response> response = userService.deleteUser(params[0]);
 

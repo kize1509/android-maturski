@@ -11,7 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.maturski.R;
-import network.base;
+import network.chat.messageRequests;
+import network.chat.roomRequests;
 
 public class ChatsActivity extends AppCompatActivity {
 
@@ -28,8 +29,8 @@ public class ChatsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         recyclerView = findViewById(R.id.Recycler);
-        base base = new base();
-        base.networkRequestAllRooms(username, recyclerView, this);
+         roomRequests roomreq = new roomRequests();
+        roomreq.networkRequestAllRooms(username, recyclerView, this);
         setSupportActionBar(toolbar);
 
     }

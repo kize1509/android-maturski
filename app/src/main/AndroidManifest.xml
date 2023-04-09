@@ -40,6 +40,7 @@
         <activity
             android:name="admin.Activity"
             android:exported="false" />
+        <service android:name="chat.single.message.SocketIOService" />
 
         <meta-data
             android:name="com.google.android.actions"

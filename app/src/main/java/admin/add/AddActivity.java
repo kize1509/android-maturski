@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import com.example.maturski.R;
 import models.User;
-import network.base;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,7 +31,6 @@ public class AddActivity extends AppCompatActivity {
     EditText passwordFIeld;
     EditText classField;
     CoordinatorLayout coordinatorLayout;
-    base base;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +42,11 @@ public class AddActivity extends AppCompatActivity {
         passwordFIeld = findViewById(R.id.passField);
         classField = findViewById(R.id.classField);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
-        base = new base();
 
+        String url = String.valueOf(R.string.url);
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(base.getUrl())
+                .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();        userService userService = retrofit.create(userService.class);
 

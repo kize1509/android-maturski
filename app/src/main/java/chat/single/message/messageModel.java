@@ -6,9 +6,9 @@ public class messageModel {
     private String message;
     private String username;
     private String chatRoom;
-    private LocalDateTime messageDateTime;
+    private String messageDateTime;
 
-    public messageModel(String message, String sender, String room, LocalDateTime messageDateTime){
+    public messageModel(String message, String sender, String room, String messageDateTime){
         this.message = message;
         this.username = sender;
         this.chatRoom = room;
@@ -28,7 +28,7 @@ public class messageModel {
         return chatRoom;
     }
 
-    public LocalDateTime getMessageDateTime() {
+    public String getMessageDateTime() {
         return messageDateTime;
     }
 }
