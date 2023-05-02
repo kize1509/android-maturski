@@ -1,0 +1,21 @@
+<!-- popup_layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:padding="16dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+
+    <!-- Text view to display the text in the pop-up -->
+    <TextView
+        android:id="@+id/popupTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="The email filed has to contain a vaild email.\n \nThe password field has to contain a password of minimum one number and one capital letter, 8 characters minimum.\n \nThe class field has to contain users class if the user is a student (format: IV-10), or the key word adm (for admins) or the keyword prof (for professors)."
+        android:textColor="@color/black"
+        android:layout_gravity="center" />
+
+</LinearLayout>

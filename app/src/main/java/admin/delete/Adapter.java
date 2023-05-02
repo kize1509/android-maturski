@@ -31,11 +31,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     List<User> userList;
     ProgressBar pb;
     Retrofit retrofit;
+    RecyclerView rv;
+    TextView noleft;
 
-    public Adapter(List<User> result, ProgressBar pb, Retrofit retrofit) {
+    public Adapter(List<User> result, ProgressBar pb, Retrofit retrofit, RecyclerView rv, TextView noleft) {
         userList = result;
         this.pb = pb;
         this.retrofit = retrofit;
+        this.rv = rv;
+        this.noleft = noleft;
     }
 
     @NonNull
@@ -59,6 +63,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if(userList.size() == 0){
+            noleft.setVisibility(View.VISIBLE);
+        }else{
+            noleft.setVisibility(View.INVISIBLE);
+        }
         if(userList.get(position) != null){
             User user1 = userList.get(position);
             holder.tv.setText(user1.getUsername());
@@ -68,6 +77,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 pb.setVisibility(View.VISIBLE);
+                rv.setVisibility(View.INVISIBLE);
                 String username = holder.tv.getText().toString();
                 Thread thread = new Thread() {
                     public void run() {
@@ -118,6 +128,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 elapsedTime = System.currentTimeMillis() - startTime;
                 pb.setProgress((int)elapsedTime);
             }
+
             response.enqueue(new Callback<network.models.response>() {
                 @Override
                 public void onResponse(Call<network.models.response> call, Response<network.models.response> response) {
@@ -136,7 +147,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         @Override
         protected void onPostExecute(String result) {
             Log.d("onPostExecute", "onPostExecute: "  + result);
+            rv.setVisibility(View.VISIBLE);
             pb.setVisibility(View.GONE);
+
         }
     }
 }

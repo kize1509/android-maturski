@@ -13,9 +13,9 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
-        android:text="STUDENT MENU"
-        android:textColor="@color/black"
-        android:textSize="30sp"
+        android:text="student menu"
+        android:textColor="@color/purple"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <GridLayout

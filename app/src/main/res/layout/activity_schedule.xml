@@ -1,0 +1,86 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16dp"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add new Schedule"
+        android:layout_marginBottom="100dp"
+        android:textSize="30sp"
+        android:textColor="@color/purple"
+        />
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profesor"
+            android:gravity="center"
+            android:textColor="@color/purple"
+
+            />
+
+        <Button
+            android:id="@+id/buttonProfessor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="add"
+            android:textSize="16sp"
+            android:padding="16dp"
+            />
+
+        <EditText
+            android:id="@+id/profEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="email"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:textColor="@color/white"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/purple"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student"
+            android:gravity="center"
+            />
+
+    <Button
+        android:id="@+id/buttonStudent"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="add"
+        android:textSize="16sp"
+        android:padding="16dp"
+        />
+
+    <EditText
+        android:id="@+id/className"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="class"
+        android:inputType="text"
+        android:digits="IV-0123456789"
+        android:padding="16dp"
+        android:textColor="@color/white"
+        />
+</LinearLayout>
+
+</LinearLayout>

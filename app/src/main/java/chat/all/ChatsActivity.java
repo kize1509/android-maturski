@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.maturski.R;
-import network.chat.messageRequests;
+import network.chat.messageRequestAsyncTask;
 import network.chat.roomRequests;
 
 public class ChatsActivity extends AppCompatActivity {

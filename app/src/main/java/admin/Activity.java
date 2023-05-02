@@ -10,6 +10,7 @@ import android.view.View;
 import com.example.maturski.R;
 
 import admin.add.AddActivity;
+import admin.schedule.ScheduleActivity;
 import chat.all.ChatsActivity;
 import admin.delete.DeleteActivity;
 
@@ -17,6 +18,7 @@ public class Activity extends AppCompatActivity {
     CardView cardViewAddUser;
     CardView cardViewDelUser;
     CardView cardViewChat;
+    CardView cardViewSchedule;
 
 
     @Override
@@ -51,6 +53,15 @@ public class Activity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent newIntent = new Intent(Activity.this, ChatsActivity.class);
                 newIntent.putExtra("activeUser", username);
+                Activity.this.startActivity(newIntent);
+            }
+        });
+
+        cardViewSchedule = findViewById(R.id.cardSchedule);
+        cardViewSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(Activity.this, ScheduleActivity.class);
                 Activity.this.startActivity(newIntent);
             }
         });

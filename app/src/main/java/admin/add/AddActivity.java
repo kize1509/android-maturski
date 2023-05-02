@@ -3,11 +3,16 @@ package admin.add;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.maturski.R;
 import models.User;
@@ -23,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import network.base;
 
 public class AddActivity extends AppCompatActivity {
 
@@ -31,6 +37,8 @@ public class AddActivity extends AppCompatActivity {
     EditText passwordFIeld;
     EditText classField;
     CoordinatorLayout coordinatorLayout;
+    Button showDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +50,28 @@ public class AddActivity extends AppCompatActivity {
         passwordFIeld = findViewById(R.id.passField);
         classField = findViewById(R.id.classField);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
+        showDialog = findViewById(R.id.showDialog);
 
-        String url = String.valueOf(R.string.url);
+        String url = base.getUlr();
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();        userService userService = retrofit.create(userService.class);
+
+                showDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Dialog dialog = new Dialog(AddActivity.this);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setContentView(R.layout.conditions_popup);
+
+                        // Set the text in the pop-up
+                        TextView popupTextView = dialog.findViewById(R.id.popupTextView);
+                        // Show the dialog
+                        dialog.show();
+                    }
+                });
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override

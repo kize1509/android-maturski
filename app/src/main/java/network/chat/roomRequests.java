@@ -54,6 +54,7 @@ public class roomRequests {
 
                 if (responseMessage.equals("failed")){}else{
                     Intent newInten = new Intent(context, Activity.class);
+                    newInten.putExtra("roomName", chatRoomModel.getMember2());
                     newInten.putExtra("message", responseMessage);
                     newInten.putExtra("username", chatRoomModel.getMember1());
                     newInten.putExtra("room", id);

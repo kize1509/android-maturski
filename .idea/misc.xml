@@ -26,10 +26,35 @@
         <entry key="..\:/Maturski/app/src/main/res/layout/user_card_admin.xml" value="0.1796875" />
         <entry key="..\:/Maturski/app/src/main/res/menu/custom_menu.xml" value="0.16666666666666666" />
         <entry key="..\:/Maturski/app/src/main/res/menu/search_menu.xml" value="0.1796875" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2645" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/drawable/add_user.xml" value="0.2645" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/drawable/chat.xml" value="0.2645" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/drawable/class_schedule.xml" value="0.2645" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/drawable/custom_ed9ttext.xml" value="0.2645" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/drawable/cut_card_background.xml" value="0.2645" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/drawable/del_user.xml" value="0.2645" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2645" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/drawable/lock.xml" value="0.2645" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/drawable/person.xml" value="0.2645" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_add_new_chat.xml" value="0.3671875" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_admin.xml" value="0.3671875" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_admin_add_user.xml" value="0.3671875" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_all_chats_window.xml" value="0.3671875" />
         <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_chat.xml" value="0.26458333333333334" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_delete_user.xml" value="0.26458333333333334" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_main.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_professor.xml" value="0.3671875" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_schedule.xml" value="0.3671875" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_schedule2.xml" value="0.1796875" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_schedule_prof.xml" value="0.3671875" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/activity_student.xml" value="0.3671875" />
         <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/card_layout.xml" value="0.26458333333333334" />
         <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/chat_name_box.xml" value="0.26458333333333334" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/conditions_popup.xml" value="0.3671875" />
         <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/message_me.xml" value="0.26458333333333334" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/layout/message_other.xml" value="0.26458333333333334" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/menu/custom_menu.xml" value="0.3671875" />
+        <entry key="..\:/Users/Zoran/Desktop/git maturski/android-maturski/app/src/main/res/menu/search_menu.xml" value="0.3671875" />
       </map>
     </option>
   </component>

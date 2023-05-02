@@ -9,11 +9,16 @@ import chat.room.roomCreationResponse;
 import chat.room.roomObject;
 import chat.single.message.messageModel;
 import network.models.response;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface userService {
@@ -24,8 +29,11 @@ public interface userService {
         @POST("/data/new")
         Call<response> addUser(@Body User newUser);
 
-        @GET("/data/{username}")
-        Call<List<User>> getAllUsers(@Path("username") String username);
+        @GET("/data/chatusers/{username}")
+        Call<List<User>> getAllUsersChat(@Path("username") String username);
+
+        @GET("/data/delusers/{username}")
+        Call<List<User>> getAllUsersDel(@Path("username") String username);
 
         @DELETE("/data/del{username}")
         Call<response> deleteUser(@Path("username") String username);
@@ -38,4 +46,11 @@ public interface userService {
 
         @GET("/data/allRooms/{username}")
         Call<List<roomObject>> getAllRooms(@Path("username") String username);
+
+        @Multipart
+        @POST("data/schedule/{data}/{role}")
+        Call<response> newSchedule(@Path("role") String role, @Path("data") String data, @Part MultipartBody.Part requestBody);
+
+        @GET("data/schedule/{data}")
+        Call<ResponseBody> getSchedule(@Path("data") String data);
 }

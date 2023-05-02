@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                                     if (!(user.getRazred().equals("adm") || user.getRazred().equals("prof"))) {
                                         Intent newIntent = new Intent(MainActivity.this, Activity.class);
                                         newIntent.putExtra("activeUser", user.getUsername());
+                                        newIntent.putExtra("class", user.getRazred());
                                         MainActivity.this.startActivity(newIntent);
                                     } else {
                                         Snackbar snackbar = Snackbar.make(coordinatorLayout, "Uneto korisnicko ime ili password nije validno!", Snackbar.LENGTH_SHORT);

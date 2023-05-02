@@ -1,5 +1,6 @@
 package chat.single;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -7,15 +8,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.maturski.R;
 
@@ -47,6 +52,10 @@ public class Activity extends AppCompatActivity {
     String username;
     String room;
     ScreenAdapter adapter;
+    TextView roomName;
+    private Boolean mBound = false;
+    private SocketIOService mService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,27 +65,97 @@ public class Activity extends AppCompatActivity {
         sendButton = findViewById(R.id.send_button);
         typeMessage = findViewById(R.id.message_input);
         recyclerView = findViewById(R.id.message_list);
+        roomName = findViewById(R.id.roomName);
         String url = base.getUlr();
+        String roomNameString = intent.getStringExtra("roomName");
         username = intent.getStringExtra("username");
         room = intent.getStringExtra("room");
         Intent intentService = new Intent(this, SocketIOService.class);
         intentService.putExtra("room", room);
         startService(intentService);
+        roomName.setText(roomNameString);
 
-        sendToService(username, SocketManager.getSocket());
-        // Register a broadcast receiver to receive the message
-
-
-
-        networkRequestMessages(room, recyclerView, sendButton, typeMessage, username);
-       //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-       //ScreenAdapter chatScreenAdapter = new ScreenAdapter(sendButton, socket, typeMessage, dataList, username);
-       //runChat(socket, chatScreenAdapter, username);
-       // recyclerView.setAdapter(chatScreenAdapter);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = typeMessage.getText().toString();
+                sendToChat(message);
+                typeMessage.setText("");
+            }
+        });
 
     }
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private void sendToChat(String message){
+        if(mBound){
+            mService.sendMessage(message, username, room);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, SocketIOService.class);
+        intent.putExtra("room", room);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        networkRequestMessages(room, recyclerView, sendButton, typeMessage, username);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mBound) {
+            unbindService(mConnection);
+            mBound = false;
+        }
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        IntentFilter filter = new IntentFilter("ChatMessage");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, filter);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+    }
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+                messageModel message = new messageModel(intent.getStringExtra("message"), intent.getStringExtra("username"), intent.getStringExtra("room"), intent.getStringExtra("messageDateTime"));
+                int size = dataList.size();
+                dataList.add(message);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyItemRangeChanged(size, 1);
+                    }
+                });
+        }
+    };
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            // We've bound to ChatService, cast the IBinder and get ChatService instance
+            SocketIOService.LocalBinder binder = (SocketIOService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName className) {
+            mBound = false;
+        }
+    };
+
+    /*private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Update UI with the received message
@@ -85,30 +164,22 @@ public class Activity extends AppCompatActivity {
             Log.d("TAG", "room: " + intent.getStringExtra("room"));
             Log.d("TAG", "messageDateTime: " + intent.getStringExtra("messageDateTime"));
             messageModel messageModel = new messageModel(intent.getStringExtra("message"), intent.getStringExtra("username"), intent.getStringExtra("room"), intent.getStringExtra("messageDateTime"));
+            Log.d("BROADCAST", "BRODCAST pisao : " + messageModel.getUsername() + ", za: " + username);
+            int listSize = dataList.size();
             dataList.add(messageModel);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    adapter.notifyDataSetChanged();
+                    int lastItemIndex = adapter.getItemCount() - 1;
+                    recyclerView.scrollToPosition(lastItemIndex);
+                    adapter.notifyItemRangeInserted(listSize, 1);
                 }
             });
         }
     };
+*/
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        LocalBroadcastManager.getInstance(this)
-                .registerReceiver(broadcastReceiver, new IntentFilter("com.example.myapp.ACTION_UPDATE_UI"));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
-    }
-
-    private void sendToService(String username, Socket socket){
+    /*private void sendToService(String username, Socket socket){
                 sendButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -120,14 +191,14 @@ public class Activity extends AppCompatActivity {
                             data.put("username", username);
                             data.put("room", room);
                             data.put("messageDateTime", dateTime);
-                            Log.d("TAG", "onClick: " + room);
+                            Log.d("TAG", "onClick room: " + room);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         typeMessage.setText("");
                         socket.emit("message", data);
                     }
-                });
+                });*/
 
                         /*socket.on("returnMessage", new Emitter.Listener() {
                             @Override
@@ -155,9 +226,9 @@ public class Activity extends AppCompatActivity {
                                     }
                                 });
                             }
-                        });*/
+                        });
 
-    }
+    }*/
 
     public void networkRequestMessages(String room, RecyclerView recyclerView, Button sendButton, EditText typeMessage, String username) {
         messageRequestAsyncTask task = new messageRequestAsyncTask(new messageRequestAsyncTask.NetworkRequestListener() {
@@ -167,7 +238,11 @@ public class Activity extends AppCompatActivity {
                 recyclerView.setLayoutManager(new LinearLayoutManager(Activity.this));
                 adapter = new ScreenAdapter(sendButton, typeMessage, dataList, username);
                 recyclerView.setAdapter(adapter);
-                Log.d("TAG", "onNetworkRequestComplete: " + data.size());
+                int lastItemIndex = adapter.getItemCount() - 1;
+                recyclerView.scrollToPosition(lastItemIndex);
+                for(int i = 0; i < dataList.size(); i++){
+                    Log.d("TAG", "sent : " + dataList.get(i).getUsername() + ", message" + dataList.get(i).getMessage());
+                }
 
             }
         }, room);

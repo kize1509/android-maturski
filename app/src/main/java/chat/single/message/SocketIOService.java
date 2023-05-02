@@ -2,11 +2,16 @@ package chat.single.message;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import com.example.maturski.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,21 +26,105 @@ import network.base;
 
 public class SocketIOService extends Service {
 
-    String room = "";
+    private final IBinder mBinder = new LocalBinder();
+    private Socket mSocket;
+    private String room;
+
+    public class LocalBinder extends Binder {
+         public SocketIOService getService() {
+            // Return this instance of ChatService so clients can call public methods
+            return SocketIOService.this;
+        }
+    }
+
+    // Public method for clients to call
+    public void sendMessage(String message, String username, String roomSend) {
+        // Send the message to the chat server
+        JSONObject data = new JSONObject();
+        String dateTime = "";
+        try {
+            data.put("message", message);
+            data.put("username", username);
+            data.put("room", roomSend);
+            data.put("messageDateTime", dateTime);
+            Log.d("TAG", "onClick room: " + room);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mSocket.emit("message", data);    }
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        Socket socket = SocketManager.getSocket();
+        mSocket = SocketManager.getSocket();
 
+        mSocket.on("returnMessage", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                JSONObject data = (JSONObject) args[0];
+
+
+                try {
+                    if(data.getString("room").equals(room)) {
+                        Log.d("TAG", "run: its da room" );
+                        Log.d("CHAT", "written by: " + data.getString("username"));
+                        messageModel message = null;
+                        message = new messageModel(data.getString("message"), data.getString("username"), data.getString("room"), data.getString("messageDateTime"));
+
+                        Log.d("sender", "run: " + message.getMessageDateTime());
+
+                        sendMessageToComponents(message);
+                    }else{
+                        Log.d("TAG", "call: not da room");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    private void sendMessageToComponents(messageModel message) {
+        Intent intent = new Intent("ChatMessage");
+        intent.putExtra("message", message.getMessage());
+        intent.putExtra("messageDateTime", message.getMessageDateTime());
+        intent.putExtra("room", message.getChatRoom());
+        intent.putExtra("username", message.getUsername());
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        room = intent.getStringExtra("room");
+        return mBinder;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // Disconnect from Socket.IO
+        mSocket.disconnect();
+    }
+
+    /*String room = "";
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        Socket socket = SocketManager.getSocket();
+        Log.d("TAG", "onCreate: " + " kreiran socket servis");
         socket.on("returnMessage", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                        JSONObject data = (JSONObject) args[0];
+                JSONObject data = (JSONObject) args[0];
+
+
                         try {
                             if(data.getString("room").equals(room)) {
                                 Log.d("TAG", "run: its da room" );
+                                Log.d("CHAT", "written by: " + data.getString("username"));
                                 messageModel message = null;
                                 try {
                                     Log.d("TAG", "call: " + data.getString("messageDateTime"));
@@ -53,6 +142,8 @@ public class SocketIOService extends Service {
                                 intent.putExtra("messageDateTime", data.getString("messageDateTime"));
 
                                 LocalBroadcastManager.getInstance(SocketIOService.this).sendBroadcast(intent);
+                            }else{
+                                Log.d("TAG", "call: not da room");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -60,6 +151,18 @@ public class SocketIOService extends Service {
                     }
         });
     }
+
+    private void sendNotification(String title, String message) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.message_notif)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(0, builder.build());
+    }
+
 
 
     @Override
@@ -84,5 +187,5 @@ public class SocketIOService extends Service {
     public IBinder onBind(Intent intent) {
         // Return null as we don't need to bind to this Service
         return null;
-    }
+    }*/
 }

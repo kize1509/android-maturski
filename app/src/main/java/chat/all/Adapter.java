@@ -51,6 +51,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 Intent newIntent = new Intent(context, Activity.class);
                 newIntent.putExtra("username", username);
                 newIntent.putExtra("room", dataList.get(position).getRoom());
+                newIntent.putExtra("roomName", dataList.get(position).getUsername());
                 context.startActivity(newIntent);
             }
         });

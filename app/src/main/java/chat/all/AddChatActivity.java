@@ -67,7 +67,7 @@ public class AddChatActivity extends AppCompatActivity {
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
                 userService userService = retrofit.create(userService.class);
-                Call<List<User>> response = userService.getAllUsers(username);
+                Call<List<User>> response = userService.getAllUsersChat(username);
 
                 response.enqueue(new Callback<List<User>>() {
                     @Override
@@ -157,42 +157,5 @@ public class AddChatActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
-    public void populateTheList(){
-        for (int i = 0; i<users.size(); i++){
-            mylist.add(users.get(i).getUsername());
-        }
-    }
-
-    private class NetworkRequestTask extends AsyncTask<String, Void, ArrayList<String>> {
-
-        @Override
-        protected ArrayList<String> doInBackground(String... strings) {
-            String url = String.valueOf(R.string.url);
-            Gson gson = new GsonBuilder().setLenient().create();
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(url)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build();
-            userService userService = retrofit.create(userService.class);
-            Call<List<User>> response = userService.getAllUsers(strings[0]);
-
-            response.enqueue(new Callback<List<User>>() {
-                @Override
-                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                    users.addAll(response.body());
-                    for (int i = 0; i<response.body().size(); i++){
-                        mylist.add(response.body().get(i).getUsername());
-                    }
-                    Log.d("TAG", "onResponse: " + response.body().size());
-                }
-
-                @Override
-                public void onFailure(Call<List<User>> call, Throwable t) {
-                    Log.d("TAG", "onFailure: " + "zapelo bas fest");
-                }
-            });
-            return mylist;
-        }
-    }
+    
 }

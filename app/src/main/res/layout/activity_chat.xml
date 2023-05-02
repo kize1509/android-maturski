@@ -5,6 +5,14 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <TextView
+        android:id="@+id/roomName"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purple"
+        android:textColor="@color/white"
+        />
     <androidx.recyclerview.widget.RecyclerView android:id="@+id/message_list"
         android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
 

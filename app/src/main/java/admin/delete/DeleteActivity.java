@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.maturski.R;
 import models.User;
@@ -24,6 +25,7 @@ public class DeleteActivity extends AppCompatActivity {
     String username;
     RecyclerView recyclerView;
     userRequests ur;
+    TextView nothingLeft;
 
     private CoordinatorLayout coordinatorLayout;
 
@@ -37,13 +39,13 @@ public class DeleteActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.Recycler);
         loadButton = findViewById(R.id.button);
         progBar = findViewById(R.id.indeterminateBar);
-        String url = String.valueOf(R.string.url);
+        nothingLeft = findViewById(R.id.noleft);
         Log.d("USERNAME", "onCreate: " + username);
         
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ur.networkRequestUsers(url, username, userList, recyclerView, DeleteActivity.this, progBar, loadButton);
+                ur.networkRequestUsers(username, userList, recyclerView, DeleteActivity.this, progBar, loadButton, nothingLeft);
             }
         });
     }
