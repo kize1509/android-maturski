@@ -134,6 +134,8 @@ public class Activity extends AppCompatActivity {
                     @Override
                     public void run() {
                         adapter.notifyItemRangeChanged(size, 1);
+                        int lastItemIndex = adapter.getItemCount() - 1;
+                        recyclerView.scrollToPosition(lastItemIndex);
                     }
                 });
         }
@@ -143,7 +145,6 @@ public class Activity extends AppCompatActivity {
 
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
-            // We've bound to ChatService, cast the IBinder and get ChatService instance
             SocketIOService.LocalBinder binder = (SocketIOService.LocalBinder) service;
             mService = binder.getService();
             mBound = true;

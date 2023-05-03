@@ -32,12 +32,10 @@ public class SocketIOService extends Service {
 
     public class LocalBinder extends Binder {
          public SocketIOService getService() {
-            // Return this instance of ChatService so clients can call public methods
             return SocketIOService.this;
         }
     }
 
-    // Public method for clients to call
     public void sendMessage(String message, String username, String roomSend) {
         // Send the message to the chat server
         JSONObject data = new JSONObject();
