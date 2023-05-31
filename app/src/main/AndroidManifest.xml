@@ -51,7 +51,9 @@
             android:name="admin.Activity"
             android:exported="false" />
 
-        <service android:name="chat.single.message.SocketIOService" />
+        <service android:name="chat.single.message.SocketIOService"
+            android:enabled="true"
+            android:exported="true"/>
 
         <meta-data
             android:name="com.google.android.actions"
