@@ -115,6 +115,7 @@ public class Activity extends AppCompatActivity {
         @Override
         public void onServiceDisconnected(ComponentName className) {
             mBound = false;
+            mService = null;
         }
     };
 

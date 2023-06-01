@@ -35,35 +35,14 @@ public class ChatsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         recyclerView = findViewById(R.id.Recycler);
-         roomRequests roomreq = new roomRequests();
-        roomreq.networkRequestAllRooms(username, recyclerView, this);
+         roomRequests roomReq = new roomRequests();
+        roomReq.networkRequestAllRooms(username, recyclerView, this);
         setSupportActionBar(toolbar);
-        ServiceTurnOff();
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                serviceIntent = new Intent(ChatsActivity.this, SocketIOService.class);
-                startService(serviceIntent);
-            }
-        };
-        thread.start();
+        serviceIntent = new Intent(ChatsActivity.this, SocketIOService.class);
+        startService(serviceIntent);
+
 
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ServiceTurnOff();
-    }
-
-    public void ServiceTurnOff(){
-        if (serviceIntent != null) {
-            Log.d("TAG", "GASI SERVIS");
-            stopService(serviceIntent);
-            serviceIntent = null;
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
