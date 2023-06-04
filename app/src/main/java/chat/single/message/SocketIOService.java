@@ -72,7 +72,6 @@ public class SocketIOService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        room = intent.getStringExtra("room");
         return mBinder;
     }
 
@@ -89,6 +88,10 @@ public class SocketIOService extends Service {
             socketThread.interrupt();
             socketThread = null;
         }
+    }
+
+    public void setRoom(String room){
+        this.room = room;
     }
 
     private class SocketThread implements Runnable{

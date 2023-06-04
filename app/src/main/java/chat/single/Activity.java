@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -67,10 +68,8 @@ public class Activity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         sendButton = findViewById(R.id.send_button);
         typeMessage = findViewById(R.id.message_input);
-       // recyclerView = findViewById(R.id.listview_screen);
         listView = findViewById(R.id.listview_screen);
         roomName = findViewById(R.id.roomName);
-        String url = base.getUlr();
         String roomNameString = intent.getStringExtra("roomName");
         username = intent.getStringExtra("username");
         room = intent.getStringExtra("room");
@@ -98,6 +97,7 @@ public class Activity extends AppCompatActivity {
                 @Override
                 public void run() {
                     adapter.notifyDataSetChanged();
+                    listView.setSelection(adapter.getCount() - 1);
                 }
             });
         }
@@ -109,6 +109,7 @@ public class Activity extends AppCompatActivity {
         public void onServiceConnected(ComponentName className, IBinder service) {
             SocketIOService.LocalBinder binder = (SocketIOService.LocalBinder) service;
             mService = binder.getService();
+            mService.setRoom(getIntent().getStringExtra("room"));
             mBound = true;
         }
 
@@ -168,11 +169,19 @@ public class Activity extends AppCompatActivity {
             @Override
             public void onNetworkRequestComplete(List<messageModel> data) {
                 dataList = data;
+
                 adapter = new ScreenAdapter(sendButton, typeMessage, dataList, username);
                 listView.setAdapter(adapter);
-                for(int i = 0; i < dataList.size(); i++){
-                    Log.d("TAG", "sent : " + dataList.get(i).getUsername() + ", message" + dataList.get(i).getMessage());
-                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(adapter.getCount() > 0){
+                            Log.d("LOAD SIZE", " LOAD SIZE " + adapter.dataList.size());
+                            listView.setSelection(adapter.getCount() - 1);
+                        }
+
+                    }
+                });
 
             }
         }, room);
