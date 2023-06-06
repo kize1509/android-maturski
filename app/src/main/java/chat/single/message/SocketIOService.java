@@ -31,7 +31,7 @@ public class SocketIOService extends Service {
     private String room;
     private Thread socketThread;
     public class LocalBinder extends Binder {
-         public SocketIOService getService() {
+        public SocketIOService getService() {
             return SocketIOService.this;
         }
     }
@@ -100,11 +100,21 @@ public class SocketIOService extends Service {
         public void run() {
             mSocket = SocketManager.getSocket();
 
+            while (!mSocket.connected()) {
+                try {
+                    Thread.sleep(1000);
+                    Log.i("Socket", "Waiting to connect");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            Log.i("Socket", String.valueOf(mSocket.connected()));
+
             mSocket.on("returnMessage", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
+                    Log.i("its da", "Socket primio poruku");
                     JSONObject data = (JSONObject) args[0];
-
 
                     try {
                         if(data.getString("room").equals(room)) {

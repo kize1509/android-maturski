@@ -25,6 +25,7 @@
             android:exported="false" />
         <activity
             android:name="admin.schedule.ScheduleActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name="professor.Activity"
@@ -40,6 +41,7 @@
             android:exported="false" />
         <activity
             android:name="chat.single.Activity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name="admin.delete.DeleteActivity"
@@ -61,6 +63,7 @@
 
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

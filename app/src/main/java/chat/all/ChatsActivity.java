@@ -35,13 +35,18 @@ public class ChatsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         recyclerView = findViewById(R.id.Recycler);
-         roomRequests roomReq = new roomRequests();
-        roomReq.networkRequestAllRooms(username, recyclerView, this);
         setSupportActionBar(toolbar);
         serviceIntent = new Intent(ChatsActivity.this, SocketIOService.class);
         startService(serviceIntent);
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        roomRequests roomReq = new roomRequests();
+        roomReq.networkRequestAllRooms(username, recyclerView, this);
     }
 
     @Override

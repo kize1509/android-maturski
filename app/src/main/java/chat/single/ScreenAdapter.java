@@ -22,8 +22,8 @@ public class ScreenAdapter extends BaseAdapter {
     List<messageModel> dataList;
     String username;
 
-    public static final int VIEW_TYPE_MESSAGE_SENT = 1;
-    public static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
+    public static final int VIEW_TYPE_MESSAGE_SENT = 0;
+    public static final int VIEW_TYPE_MESSAGE_RECEIVED = 1;
 
     public ScreenAdapter(Button sendButton, EditText typeMessage, List<messageModel> dataList, String username) {
         this.sendButton = sendButton;
