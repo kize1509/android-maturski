@@ -10,16 +10,7 @@ This repository contains the Android client application for managing high school
 
 ## Project Structure
 
-. ├── .idea # Android Studio project files 
-  ├── app # Main application source code 
-  ├── gradle/wrapper # Gradle wrapper files 
-  ├── .gitignore # Git ignored files 
-  ├── README.md # Project documentation 
-  ├── build.gradle # Build configuration 
-  ├── gradle.properties # Gradle properties configuration 
-  ├── gradlew # Gradle wrapper executable 
-  ├── gradlew.bat # Gradle wrapper executable for Windows 
-  └── settings.gradle # Project settings
+. ├── .idea/ # Android Studio configuration files ├── app/ # Source code of the Android application ├── gradle/wrapper/ # Gradle wrapper files ├── .gitignore # Git ignored files and directories ├── README.md # Project documentation ├── build.gradle # Build configuration file for the project ├── gradle.properties # Configuration properties for Gradle ├── gradlew # Gradle wrapper script for UNIX-based systems ├── gradlew.bat # Gradle wrapper script for Windows └── settings.gradle # Root project settings for Gradle
 
 
 ## Getting Started
